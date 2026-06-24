@@ -1,99 +1,204 @@
-const data=[
-{id:'001',title:'さっき食べてない',coin:10},
-{id:'002',title:'配膳ミス恐怖症',coin:10},
-{id:'003',title:'お茶だけ人気',coin:10}
+const discoveries = [
+{
+id:"001",
+title:"さっき食べてない",
+text:"『まだ食べてないよ』と数分前の食事を忘れてしまうことも。",
+coin:10
+},
+{
+id:"002",
+title:"配膳ミス恐怖症",
+text:"配膳直前は職員みんなで最終確認。",
+coin:10
+},
+{
+id:"003",
+title:"お茶だけ人気",
+text:"お茶だけ先になくなることがある。",
+coin:10
+}
 ];
 
-let save=JSON.parse(localStorage.getItem('kaigoSave'))||{
+let saveData =
+JSON.parse(
+localStorage.getItem("kaigoSave")
+) || {
 coins:0,
 found:[]
 };
 
-update();
+updateUI();
 
-function discover(i,obj){
+function discover(index,obj){
 
-const d=data[i];
+const item = discoveries[index];
 
-if(save.found.includes(d.id)){
-alert('既に発見済み');
+if(saveData.found.includes(item.id)){
 return;
 }
 
-save.found.push(d.id);
-save.coins+=d.coin;
+saveData.found.push(item.id);
 
-obj.classList.add('found');
+saveData.coins += item.coin;
 
-store();
+obj.classList.add("found");
 
-alert(
-'発見！\n\n'+
-d.title+
-'\n\n+'+
-d.coin+
-'コイン'
-);
+save();
 
-if(save.found.length>=3){
-setTimeout(()=>{
-alert('ステージクリア！');
-},300);
-}
+updateUI();
 
-update();
+document.getElementById(
+"popupTitle"
+).textContent = item.title;
+
+document.getElementById(
+"popupText"
+).textContent =
+item.text + " +" + item.coin + "コイン";
+
+document.getElementById(
+"popup"
+).classList.remove("hidden");
+
+checkClear();
 
 }
 
 function miss(){
-alert('特に変わった様子はない');
-}
 
-function update(){
-document.getElementById('coins').textContent=save.coins;
-updateDictionary();
-}
-
-function store(){
-localStorage.setItem(
-'kaigoSave',
-JSON.stringify(save)
+alert(
+"特に変わった様子はない"
 );
+
+}
+
+function closePopup(){
+
+document.getElementById(
+"popup"
+).classList.add("hidden");
+
 }
 
 function showDictionary(){
-document
-.getElementById('dictionary')
-.classList
-.remove('hidden');
+
+updateDictionary();
+
+document.getElementById(
+"dictionaryModal"
+).classList.remove("hidden");
+
 }
 
 function hideDictionary(){
-document
-.getElementById('dictionary')
-.classList
-.add('hidden');
+
+document.getElementById(
+"dictionaryModal"
+).classList.add("hidden");
+
 }
 
 function updateDictionary(){
 
-const list=document.getElementById('list');
+const list =
+document.getElementById(
+"dictionaryList"
+);
 
-if(!list)return;
+list.innerHTML = "";
 
-list.innerHTML='';
+discoveries.forEach(item=>{
 
-save.found.forEach(id=>{
+const li =
+document.createElement("li");
 
-const d=data.find(x=>x.id===id);
+if(saveData.found.includes(item.id)){
 
-const li=document.createElement('li');
+li.textContent =
+item.id +
+" " +
+item.title;
 
-li.textContent=
-id+' '+d.title;
+}else{
+
+li.textContent =
+item.id +
+" ?????";
+
+}
 
 list.appendChild(li);
 
 });
+
+}
+
+function updateUI(){
+
+document.getElementById(
+"coinDisplay"
+).textContent =
+saveData.coins;
+
+document.getElementById(
+"foundDisplay"
+).textContent =
+saveData.found.length;
+
+restoreFound();
+
+}
+
+function restoreFound(){
+
+document
+.querySelectorAll(".discover")
+.forEach((obj,index)=>{
+
+if(
+saveData.found.includes(
+discoveries[index].id
+)
+){
+obj.classList.add("found");
+}
+
+});
+
+}
+
+function checkClear(){
+
+if(
+saveData.found.length >=
+discoveries.length
+){
+
+document.getElementById(
+"clearModal"
+).classList.remove(
+"hidden"
+);
+
+}
+
+}
+
+function closeClear(){
+
+document.getElementById(
+"clearModal"
+).classList.add(
+"hidden"
+);
+
+}
+
+function save(){
+
+localStorage.setItem(
+"kaigoSave",
+JSON.stringify(saveData)
+);
 
 }
