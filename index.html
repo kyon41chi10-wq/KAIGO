@@ -2,26 +2,51 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>介護あるある発見！</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
+
 <h1>介護あるある発見！</h1>
 <p>食堂のあるあるを探そう！</p>
 
-<div class="status">
-<span>コイン: <b id="coins">0</b></span>
-<button onclick="showDictionary()">図鑑</button>
+<div class="topbar">
+  <span>コイン：<b id="coins">0</b></span>
+  <button onclick="showDictionary()">図鑑</button>
 </div>
 
 <div id="stage">
-<button class="obj" onclick="discover(0)">利用者</button>
-<button class="obj" onclick="discover(1)">配膳車</button>
-<button class="obj" onclick="discover(2)">お茶</button>
-<button class="obj" onclick="miss()">テーブル</button>
-<button class="obj" onclick="miss()">職員</button>
+
+  <div class="item wrong" onclick="miss(this)"
+       style="left:20px;top:350px;">
+       👴
+  </div>
+
+  <div class="item discover"
+       onclick="discover(0,this)"
+       style="left:50px;top:150px;">
+       👵
+  </div>
+
+  <div class="item discover"
+       onclick="discover(1,this)"
+       style="left:230px;top:120px;">
+       👩‍⚕️
+  </div>
+
+  <div class="item discover"
+       onclick="discover(2,this)"
+       style="left:170px;top:280px;">
+       🍵
+  </div>
+
+  <div class="item wrong"
+       onclick="miss(this)"
+       style="left:250px;top:350px;">
+       🪑
+  </div>
+
 </div>
 
 <div id="dictionary" class="hidden">
@@ -29,7 +54,8 @@
 <ul id="list"></ul>
 <button onclick="hideDictionary()">閉じる</button>
 </div>
-</div>
+
 <script src="game.js"></script>
+
 </body>
 </html>
