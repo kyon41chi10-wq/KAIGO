@@ -1,84 +1,57 @@
-
-const discoveries=[
+const data=[
 {id:'001',title:'さっき食べてない',coin:10},
-{id:'002',title:'おかわり希望',coin:10},
-{id:'003',title:'配膳ミス恐怖症',coin:10},
-{id:'004',title:'デザート即完売',coin:20},
-{id:'005',title:'お茶だけ人気',coin:10}
+{id:'002',title:'配膳ミス恐怖症',coin:10},
+{id:'003',title:'お茶だけ人気',coin:10}
 ];
 
-let save=JSON.parse(localStorage.getItem('kaigoSaveV02'))||{
-coins:0,discoveries:[]
+let save=JSON.parse(localStorage.getItem('kaigoSave'))||{
+coins:0,found:[]
 };
 
-document.querySelectorAll('.obj').forEach(o=>{
-o.addEventListener('click',()=>discover(o.dataset.id,o));
-});
+update();
 
-updateUI();
-
-function hideAll(){
-document.querySelectorAll('.screen').forEach(x=>x.classList.add('hidden'));
+function discover(i){
+const d=data[i];
+if(save.found.includes(d.id)){
+alert('既に発見済み');
+return;
+}
+save.found.push(d.id);
+save.coins+=d.coin;
+store();
+alert('発見！ '+d.title+'\n+'+d.coin+'コイン');
+update();
 }
 
-function showStageSelect(){
-hideAll();
-document.getElementById('stageSelect').classList.remove('hidden');
+function miss(){
+alert('特に変わった様子はない');
+}
+
+function update(){
+document.getElementById('coins').textContent=save.coins;
 updateDictionary();
 }
 
-function startStage(){
-hideAll();
-document.getElementById('gameScreen').classList.remove('hidden');
-refreshFound();
+function store(){
+localStorage.setItem('kaigoSave',JSON.stringify(save));
 }
 
 function showDictionary(){
-hideAll();
-document.getElementById('dictionaryScreen').classList.remove('hidden');
-updateDictionary();
+document.getElementById('dictionary').classList.remove('hidden');
 }
 
-function discover(id,obj){
-let d=discoveries.find(x=>x.id===id);
-if(save.discoveries.includes(id)) return;
-
-save.discoveries.push(id);
-save.coins+=d.coin;
-
-localStorage.setItem('kaigoSaveV02',JSON.stringify(save));
-
-document.getElementById('popupTitle').textContent=d.title;
-document.getElementById('popup').classList.remove('hidden');
-
-updateUI();
-refreshFound();
-}
-
-function closePopup(){
-document.getElementById('popup').classList.add('hidden');
+function hideDictionary(){
+document.getElementById('dictionary').classList.add('hidden');
 }
 
 function updateDictionary(){
-const ul=document.getElementById('dictionary');
-ul.innerHTML='';
-discoveries.forEach(d=>{
-let li=document.createElement('li');
-li.textContent=save.discoveries.includes(d.id)?d.title:'?????';
-ul.appendChild(li);
+const list=document.getElementById('list');
+if(!list)return;
+list.innerHTML='';
+save.found.forEach(id=>{
+const d=data.find(x=>x.id===id);
+const li=document.createElement('li');
+li.textContent=id+' '+d.title;
+list.appendChild(li);
 });
 }
-
-function updateUI(){
-document.getElementById('coins').textContent=save.coins;
-document.getElementById('rate').textContent=Math.floor(save.discoveries.length/discoveries.length*100);
-}
-
-function refreshFound(){
-document.querySelectorAll('.obj').forEach(o=>{
-if(save.discoveries.includes(o.dataset.id)){
-o.classList.add('found');
-}
-});
-}
-

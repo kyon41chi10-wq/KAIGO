@@ -3,53 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>介護あるある発見！ v0.2</title>
+<title>介護あるある発見！</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="titleScreen" class="screen">
+<div class="wrap">
 <h1>介護あるある発見！</h1>
-<p>介護現場のあるあるを探そう！</p>
-<button onclick="showStageSelect()">スタート</button>
-</div>
+<p>食堂のあるあるを探そう！</p>
 
-<div id="stageSelect" class="screen hidden">
-<h2>ステージ選択</h2>
-<button onclick="startStage()">食堂</button>
+<div class="status">
+<span>コイン: <b id="coins">0</b></span>
 <button onclick="showDictionary()">図鑑</button>
 </div>
 
-<div id="gameScreen" class="screen hidden">
-<div class="topbar">
-<span>コイン: <span id="coins">0</span></span>
-<span>図鑑率: <span id="rate">0</span>%</span>
+<div id="stage">
+<button class="obj" onclick="discover(0)">利用者</button>
+<button class="obj" onclick="discover(1)">配膳車</button>
+<button class="obj" onclick="discover(2)">お茶</button>
+<button class="obj" onclick="miss()">テーブル</button>
+<button class="obj" onclick="miss()">職員</button>
 </div>
 
-<div id="stageArea">
-<div class="obj" data-id="001" style="left:15%;top:40%">利用者</div>
-<div class="obj" data-id="002" style="left:60%;top:20%">配膳車</div>
-<div class="obj" data-id="003" style="left:70%;top:65%">お茶</div>
-<div class="obj" data-id="004" style="left:40%;top:60%">デザート</div>
-<div class="obj" data-id="005" style="left:30%;top:20%">お茶碗</div>
-</div>
-
-<button onclick="showStageSelect()">戻る</button>
-</div>
-
-<div id="dictionaryScreen" class="screen hidden">
+<div id="dictionary" class="hidden">
 <h2>図鑑</h2>
-<ul id="dictionary"></ul>
-<button onclick="showStageSelect()">戻る</button>
-</div>
-
-<div id="popup" class="popup hidden">
-<div class="card">
-<h2 id="popupTitle"></h2>
-<p>図鑑に登録されました！</p>
-<button onclick="closePopup()">OK</button>
+<ul id="list"></ul>
+<button onclick="hideDictionary()">閉じる</button>
 </div>
 </div>
-
 <script src="game.js"></script>
 </body>
 </html>
