@@ -2,15 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>介護あるある発見！</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>介護あるある発見！ v0.2</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="app">
-<h1>介護あるある発見！</h1>
-
 <div id="titleScreen" class="screen">
+<h1>介護あるある発見！</h1>
+<p>介護現場のあるあるを探そう！</p>
 <button onclick="showStageSelect()">スタート</button>
 </div>
 
@@ -23,12 +22,15 @@
 <div id="gameScreen" class="screen hidden">
 <div class="topbar">
 <span>コイン: <span id="coins">0</span></span>
+<span>図鑑率: <span id="rate">0</span>%</span>
 </div>
 
 <div id="stageArea">
-<div class="obj" style="left:20%;top:40%" onclick="discover(0)">利用者</div>
-<div class="obj" style="left:60%;top:25%" onclick="discover(1)">配膳車</div>
-<div class="obj" style="left:70%;top:65%" onclick="discover(2)">お茶碗</div>
+<div class="obj" data-id="001" style="left:15%;top:40%">利用者</div>
+<div class="obj" data-id="002" style="left:60%;top:20%">配膳車</div>
+<div class="obj" data-id="003" style="left:70%;top:65%">お茶</div>
+<div class="obj" data-id="004" style="left:40%;top:60%">デザート</div>
+<div class="obj" data-id="005" style="left:30%;top:20%">お茶碗</div>
 </div>
 
 <button onclick="showStageSelect()">戻る</button>
@@ -38,6 +40,13 @@
 <h2>図鑑</h2>
 <ul id="dictionary"></ul>
 <button onclick="showStageSelect()">戻る</button>
+</div>
+
+<div id="popup" class="popup hidden">
+<div class="card">
+<h2 id="popupTitle"></h2>
+<p>図鑑に登録されました！</p>
+<button onclick="closePopup()">OK</button>
 </div>
 </div>
 
