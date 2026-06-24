@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>介護あるある発見！</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+<h1>介護あるある発見！</h1>
+
+<div id="titleScreen" class="screen">
+<button onclick="showStageSelect()">スタート</button>
+</div>
+
+<div id="stageSelect" class="screen hidden">
+<h2>ステージ選択</h2>
+<button onclick="startStage()">食堂</button>
+<button onclick="showDictionary()">図鑑</button>
+</div>
+
+<div id="gameScreen" class="screen hidden">
+<div class="topbar">
+<span>コイン: <span id="coins">0</span></span>
+</div>
+
+<div id="stageArea">
+<div class="obj" style="left:20%;top:40%" onclick="discover(0)">利用者</div>
+<div class="obj" style="left:60%;top:25%" onclick="discover(1)">配膳車</div>
+<div class="obj" style="left:70%;top:65%" onclick="discover(2)">お茶碗</div>
+</div>
+
+<button onclick="showStageSelect()">戻る</button>
+</div>
+
+<div id="dictionaryScreen" class="screen hidden">
+<h2>図鑑</h2>
+<ul id="dictionary"></ul>
+<button onclick="showStageSelect()">戻る</button>
+</div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
