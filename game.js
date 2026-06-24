@@ -1,28 +1,27 @@
 const discoveries = [
 {
-id:"001",
-title:"さっき食べてない",
-text:"『まだ食べてないよ』と数分前の食事を忘れてしまうことも。",
+id:“001”,
+title:“さっき食べてない”,
+text:”『まだ食べてないよ』と数分前の食事を忘れてしまうことも。”,
 coin:10
 },
 {
-id:"002",
-title:"配膳ミス恐怖症",
-text:"配膳直前は職員みんなで最終確認。",
+id:“002”,
+title:“配膳ミス恐怖症”,
+text:“配膳直前は職員みんなで最終確認。”,
 coin:10
 },
 {
-id:"003",
-title:"お茶だけ人気",
-text:"お茶だけ先になくなることがある。",
+id:“003”,
+title:“お茶だけ人気”,
+text:“お茶だけ先になくなることがある。”,
 coin:10
 }
 ];
 
-let saveData =
-JSON.parse(
-localStorage.getItem("kaigoSave")
-) || {
+localStorage.removeItem(“kaigoSave”);
+
+let saveData = {
 coins:0,
 found:[]
 };
@@ -41,43 +40,33 @@ saveData.found.push(item.id);
 
 saveData.coins += item.coin;
 
-obj.classList.add("found");
-
-save();
+obj.classList.add(“found”);
 
 updateUI();
 
 document.getElementById(
-"popupTitle"
+“popupTitle”
 ).textContent = item.title;
 
 document.getElementById(
-"popupText"
+“popupText”
 ).textContent =
-item.text + " +" + item.coin + "コイン";
+item.text + “ +” + item.coin + “コイン”;
 
 document.getElementById(
-"popup"
-).classList.remove("hidden");
+“popup”
+).classList.remove(“hidden”);
 
 checkClear();
 
 }
 
 function miss(){
-
-alert(
-"特に変わった様子はない"
-);
-
+alert(“特に変わった様子はない”);
 }
 
 function closePopup(){
-
-document.getElementById(
-"popup"
-).classList.add("hidden");
-
+document.getElementById(“popup”).classList.add(“hidden”);
 }
 
 function showDictionary(){
@@ -85,16 +74,16 @@ function showDictionary(){
 updateDictionary();
 
 document.getElementById(
-"dictionaryModal"
-).classList.remove("hidden");
+“dictionaryModal”
+).classList.remove(“hidden”);
 
 }
 
 function hideDictionary(){
 
 document.getElementById(
-"dictionaryModal"
-).classList.add("hidden");
+“dictionaryModal”
+).classList.add(“hidden”);
 
 }
 
@@ -102,29 +91,22 @@ function updateDictionary(){
 
 const list =
 document.getElementById(
-"dictionaryList"
+“dictionaryList”
 );
 
-list.innerHTML = "";
+list.innerHTML = “”;
 
 discoveries.forEach(item=>{
 
 const li =
-document.createElement("li");
+document.createElement(“li”);
 
 if(saveData.found.includes(item.id)){
-
 li.textContent =
-item.id +
-" " +
-item.title;
-
+item.id + “ “ + item.title;
 }else{
-
 li.textContent =
-item.id +
-" ?????";
-
+item.id + “ ?????”;
 }
 
 list.appendChild(li);
@@ -136,34 +118,14 @@ list.appendChild(li);
 function updateUI(){
 
 document.getElementById(
-"coinDisplay"
+“coinDisplay”
 ).textContent =
 saveData.coins;
 
 document.getElementById(
-"foundDisplay"
+“foundDisplay”
 ).textContent =
 saveData.found.length;
-
-restoreFound();
-
-}
-
-function restoreFound(){
-
-document
-.querySelectorAll(".discover")
-.forEach((obj,index)=>{
-
-if(
-saveData.found.includes(
-discoveries[index].id
-)
-){
-obj.classList.add("found");
-}
-
-});
 
 }
 
@@ -175,10 +137,8 @@ discoveries.length
 ){
 
 document.getElementById(
-"clearModal"
-).classList.remove(
-"hidden"
-);
+“clearModal”
+).classList.remove(“hidden”);
 
 }
 
@@ -187,18 +147,7 @@ document.getElementById(
 function closeClear(){
 
 document.getElementById(
-"clearModal"
-).classList.add(
-"hidden"
-);
-
-}
-
-function save(){
-
-localStorage.setItem(
-"kaigoSave",
-JSON.stringify(saveData)
-);
+“clearModal”
+).classList.add(“hidden”);
 
 }
