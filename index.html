@@ -4,55 +4,153 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>介護あるある発見！</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>介護あるある発見！</h1>
-<p>食堂のあるあるを探そう！</p>
+<div id="app">
 
-<div class="topbar">
-  <span>コイン：<b id="coins">0</b></span>
-  <button onclick="showDictionary()">図鑑</button>
+<header>
+
+<h1>介護あるある発見！</h1>
+
+<div class="status">
+
+<div>
+💰 コイン
+<span id="coinDisplay">0</span>
 </div>
+
+<div>
+📖 発見数
+<span id="foundDisplay">0</span>/3
+</div>
+
+<button onclick="showDictionary()">
+図鑑
+</button>
+
+</div>
+
+</header>
+
+<main>
 
 <div id="stage">
 
-  <div class="item wrong" onclick="miss(this)"
-       style="left:20px;top:350px;">
-       👴
-  </div>
+<div class="wall"></div>
 
-  <div class="item discover"
-       onclick="discover(0,this)"
-       style="left:50px;top:150px;">
-       👵
-  </div>
+<div class="window">
+🪟
+</div>
 
-  <div class="item discover"
-       onclick="discover(1,this)"
-       style="left:230px;top:120px;">
-       👩‍⚕️
-  </div>
+<div class="clock">
+🕒
+</div>
 
-  <div class="item discover"
-       onclick="discover(2,this)"
-       style="left:170px;top:280px;">
-       🍵
-  </div>
+<div class="table table1"></div>
+<div class="table table2"></div>
 
-  <div class="item wrong"
-       onclick="miss(this)"
-       style="left:250px;top:350px;">
-       🪑
-  </div>
+<div class="item wrong chair1"
+onclick="miss()">
+🪑
+</div>
+
+<div class="item wrong chair2"
+onclick="miss()">
+🪑
+</div>
+
+<div class="item discover grandma"
+onclick="discover(0,this)">
+👵
+</div>
+
+<div class="item discover nurse"
+onclick="discover(1,this)">
+👩‍⚕️
+</div>
+
+<div class="item discover tea"
+onclick="discover(2,this)">
+🍵
+</div>
+
+<div class="item wrong grandpa"
+onclick="miss()">
+👴
+</div>
+
+<div class="item wrong meal"
+onclick="miss()">
+🍱
+</div>
 
 </div>
 
-<div id="dictionary" class="hidden">
+</main>
+
+<div id="popup" class="hidden">
+
+<div class="popupCard">
+
+<h2 id="popupTitle">
+発見！
+</h2>
+
+<p id="popupText">
+あるあるを発見した！
+</p>
+
+<button onclick="closePopup()">
+OK
+</button>
+
+</div>
+
+</div>
+
+<div id="dictionaryModal"
+class="hidden">
+
+<div class="dictionaryCard">
+
 <h2>図鑑</h2>
-<ul id="list"></ul>
-<button onclick="hideDictionary()">閉じる</button>
+
+<ul id="dictionaryList">
+</ul>
+
+<button onclick="hideDictionary()">
+閉じる
+</button>
+
+</div>
+
+</div>
+
+<div id="clearModal"
+class="hidden">
+
+<div class="clearCard">
+
+<h2>
+🎉ステージクリア！
+</h2>
+
+<p>
+食堂のあるあるを全て発見しました！
+</p>
+
+<button onclick="closeClear()">
+OK
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 <script src="game.js"></script>
